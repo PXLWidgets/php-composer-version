@@ -1,6 +1,6 @@
 {
   "name": "@pxlwidgets/php-composer-version",
-  "version": "1.0.0-rc3",
+  "version": "1.0.0",
   "description": "A NodeJS executable serving as a php-composer equivalent to the version command of other package managers",
   "repository": "git+https://github.com/PXLWidgets/php-composer-version.git",
   "main": "index.js",
