@@ -1,7 +1,7 @@
 {
   "name": "@pxlwidgets/php-composer-version",
   "version": "1.0.0-rc3",
-  "description": "Node script for a php-composer equivalent to the version command of other package managers",
+  "description": "A NodeJS executable serving as a php-composer equivalent to the version command of other package managers",
   "repository": "git+https://github.com/PXLWidgets/php-composer-version.git",
   "main": "index.js",
   "bin": {
@@ -17,7 +17,7 @@
     "git",
     "git-tag"
   ],
-  "author": "Jeffrey Westerkamp <https://github.com/JJWesterkamp>",
+  "author": "Jeffrey Westerkamp <jeffrey@pxlwidgets.com> (https://github.com/JJWesterkamp)",
   "license": "MIT",
   "dependencies": {
     "@types/fs-extra": "^7.0.0",
