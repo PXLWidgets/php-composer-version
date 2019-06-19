@@ -16,7 +16,7 @@
     "git",
     "git-tag"
   ],
-  "author": "Jeffrey Westerkamp",
+  "author": "Jeffrey Westerkamp <https://github.com/JJWesterkamp>",
   "license": "MIT",
   "dependencies": {
     "@types/fs-extra": "^7.0.0",

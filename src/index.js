@@ -9,7 +9,6 @@ const semver = require('semver');
 const { mergeDeepRight } = require("ramda");
 
 
-
 (async function main() {
 
     try {
@@ -41,8 +40,6 @@ const { mergeDeepRight } = require("ramda");
         await writeVersionToPackageJson(version);
         await writeVersionToComposerJson(version);
         await commitAndTag(version);
-
-        throw 'OOOPS';
 
         feedback.done(version);
         done();
@@ -96,7 +93,7 @@ async function writeVersionToComposerJson(version) {
     const json = formatJSON(mergeDeepRight(config.COMPOSER_JSON, { version }));
 
     try {
-        await Fs.writeFile(__dirname + '/../../composer.json', json);
+        await Fs.writeFile(config.COMPOSER_JSON_PATH, json);
         feedback.composerVersionUpdateOK();
 
     } catch (error) {
@@ -112,7 +109,7 @@ async function writeVersionToPackageJson(version) {
     const json = formatJSON(mergeDeepRight(config.PACKAGE_JSON, { version }));
 
     try {
-        await Fs.writeFile(__dirname + '/../../package.json', json);
+        await Fs.writeFile(config.PACKAGE_JSON_PATH, json);
         feedback.packageVersionUpdateOK();
 
     } catch (error) {
