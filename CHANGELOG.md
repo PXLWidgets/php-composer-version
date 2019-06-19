@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- This Changelog file
+- This Changelog file  
+- CLI option for displaying CLI help page. 
+- CLI option to allow operating on a dirty working directory
+    > When set, additional project changes may exist when running php-composer-version.
+    This allows for combining the version commit's changes with a CHANGELOG update, for instance.  
+- CLI option to toggle also updating the version in `package.json`
+    > As of this release disabled by default - see 'Changed'
+
+
+- Add CLI help page
+
+### Changed
+- Sync of package.json is now omitted by default
+    > This allows users to do a global installation of this package, so that the PHP package 
+under development does not have to have a `package.json` file in the repository.
 
 ## [1.0.0] - 2019-06-19 (Initial version)
 

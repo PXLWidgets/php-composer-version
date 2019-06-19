@@ -8,7 +8,7 @@ similar to how `npm version` works. On input of a new version number:
 3. Above changes are committed with a message of the version number
 4. The created commit is tagged with the version number
 
-## Installation
+## installation
 
 - Install the package from npm:
 ```bash
@@ -23,6 +23,7 @@ $ npm install --save-dev @pxlwidgets/php-composer-version
     }
 }
 ```
+ 
 ## Usage 
 
 Run the script from the command line from your project root:
