@@ -1,6 +1,6 @@
 {
   "name": "@pxlwidgets/php-composer-version",
-  "version": "0.1.0",
+  "version": "1.0.0-rc1",
   "description": "Node script for a php-composer equivalent to the version command of other package managers",
   "main": "index.js",
   "bin": {
