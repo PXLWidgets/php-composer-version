@@ -1,53 +1,89 @@
 #!/usr/bin/env node
 
 const config = require('./config');
-const feedback = require('./feedback');
+const output = require('./output');
 const Fs = require('fs-extra');
 const git = require('./git');
-const promptVersion = require('./prompt-version');
+const promptVersion = require('./prompt/version');
+const promptContinue = require('./prompt/continue');
 const semver = require('semver');
 const { mergeDeepRight } = require("ramda");
 
+const cliFlags = {
+    help: ['-h', '--help'],
+};
+
+const isHelp = config.CLI_ARGUMENTS.some((arg) => cliFlags.help.includes(arg));
+
+output.heading(isHelp);
+
+if (isHelp) {
+    output.help();
+    done();
+}
 
 (async function main() {
 
+    output.blankLine();
+
     try {
-        if (!await git().checkIsRepo()) {
-            feedback.gitRepoNotFound();
+
+        const isRepository = await git().checkIsRepo();
+
+        if ( ! isRepository) {
+            output.gitRepoNotFound();
             return fail();
         }
 
         const status = await git().status();
 
         if (status.current !== 'master') {
-            feedback.gitBranchError(status.current);
+            output.gitBranchError(status.current);
             return fail();
         }
 
         if ( ! status.isClean()) {
-            feedback.gitDirtyError();
-            return fail();
+
+            if (config.allowDirty) {
+                output.gitDirtyNotice(status);
+            } else {
+
+                try {
+                    output.gitDirtyWarning(status);
+                    await promptContinue();
+
+                } catch (e) {
+                    output.success('Aborting...');
+                    return done();
+                }
+            }
         }
 
     } catch (e) {
-        feedback.gitOperationError(e);
+        output.gitOperationError(e);
         return fail();
     }
 
     const version = await getNewVersionFromUser();
 
     try {
-        await writeVersionToPackageJson(version);
+        if (config.syncPackageJson) {
+            await writeVersionToPackageJson(version);
+        }
+
         await writeVersionToComposerJson(version);
         await commitAndTag(version);
 
-        feedback.done(version);
+        output.done(version);
         done();
 
     } catch (e) {
-        feedback.error('Error: ' + e + '. Rolling back package manager files');
+        output.error('Error: ' + e + '. Rolling back package manager files');
         await rollbackComposerJson();
-        await rollbackPackageJson();
+
+        if (config.syncPackageJson) {
+            await rollbackPackageJson();
+        }
 
         fail();
     }
@@ -63,41 +99,41 @@ const { mergeDeepRight } = require("ramda");
 async function getNewVersionFromUser(attempt = 1) {
 
     if (attempt === 1) {
-        feedback.versionPromptMessage();
+        output.versionPromptMessage();
     }
 
     try {
         const version = await promptVersion();
 
         await expectValidVersion(version);
-        feedback.bumpOK();
+        output.bumpOK();
         return semver.clean(version);
 
     } catch (error) {
 
-        feedback.bumpError(error);
+        output.bumpError(error);
         return getNewVersionFromUser(attempt + 1);
     }
 }
 
 async function rollbackComposerJson() {
-    await Fs.writeFile(config.COMPOSER_JSON_PATH, formatJSON(config.COMPOSER_JSON));
+    await Fs.writeFile(config.COMPOSER_JSON_PATH, formatJSON(config.COMPOSER_JSON_DATA));
 }
 
 async function rollbackPackageJson() {
-    await Fs.writeFile(config.PACKAGE_JSON_PATH, formatJSON(config.PACKAGE_JSON));
+    await Fs.writeFile(config.PACKAGE_JSON_PATH, formatJSON(config.PACKAGE_JSON_DATA));
 }
 
 async function writeVersionToComposerJson(version) {
 
-    const json = formatJSON(mergeDeepRight(config.COMPOSER_JSON, { version }));
+    const json = formatJSON(mergeDeepRight(config.COMPOSER_JSON_DATA, { version }));
 
     try {
         await Fs.writeFile(config.COMPOSER_JSON_PATH, json);
-        feedback.composerVersionUpdateOK();
+        output.composerVersionUpdateOK();
 
     } catch (error) {
-        feedback.composerVersionUpdateError(error);
+        output.composerVersionUpdateError(error);
         throw error;
     }
 
@@ -106,14 +142,14 @@ async function writeVersionToComposerJson(version) {
 
 async function writeVersionToPackageJson(version) {
 
-    const json = formatJSON(mergeDeepRight(config.PACKAGE_JSON, { version }));
+    const json = formatJSON(mergeDeepRight(config.PACKAGE_JSON_DATA, { version }));
 
     try {
         await Fs.writeFile(config.PACKAGE_JSON_PATH, json);
-        feedback.packageVersionUpdateOK();
+        output.packageVersionUpdateOK();
 
     } catch (error) {
-        feedback.packageVersionUpdateError(error);
+        output.packageVersionUpdateError(error);
         throw error;
     }
 
@@ -125,13 +161,13 @@ async function commitAndTag(version) {
     try {
         await git().add('./');
         await git().commit(version);
-        feedback.gitCommitOK();
+        output.gitCommitOK();
 
         await git().addTag(version);
-        feedback.gitTagOK();
+        output.gitTagOK();
 
     } catch (e) {
-        feedback.error('Git error: ', e);
+        output.error('Git error: ', e);
         throw e;
     }
 }

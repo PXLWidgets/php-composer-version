@@ -1,31 +1,32 @@
 {
-  "name": "@pxlwidgets/php-composer-version",
-  "version": "1.0.0",
-  "description": "A NodeJS executable serving as a php-composer equivalent to the version command of other package managers",
-  "repository": "git+https://github.com/PXLWidgets/php-composer-version.git",
-  "main": "index.js",
-  "bin": {
-    "php-composer-version": "./src/index.js"
-  },
-  "keywords": [
-    "PHP",
-    "Composer",
-    "Node",
-    "bin",
-    "package.json",
-    "composer.json",
-    "git",
-    "git-tag"
-  ],
-  "author": "Jeffrey Westerkamp <jeffrey@pxlwidgets.com> (https://github.com/JJWesterkamp)",
-  "license": "MIT",
-  "dependencies": {
-    "@types/fs-extra": "^7.0.0",
-    "@types/ramda": "^0.26.9",
-    "chalk": "^2.4.2",
-    "fs-extra": "^8.0.1",
-    "ramda": "^0.26.1",
-    "semver": "^6.1.1",
-    "simple-git": "^1.115.0"
-  }
+    "name": "@pxlwidgets/php-composer-version",
+    "version": "1.0.0",
+    "description": "A small node utility to bump versions of php-composer packages, similar to how npm version works.",
+    "repository": "git+https://github.com/PXLWidgets/php-composer-version.git",
+    "homepage": "https://github.com/PXLWidgets/php-composer-version",
+    "main": "index.js",
+    "bin": {
+        "php-composer-version": "./src/index.js"
+    },
+    "keywords": [
+        "PHP",
+        "Composer",
+        "Node",
+        "bin",
+        "package.json",
+        "composer.json",
+        "git",
+        "git-tag"
+    ],
+    "author": "Jeffrey Westerkamp <jeffrey@pxlwidgets.com> (https://github.com/JJWesterkamp)",
+    "license": "MIT",
+    "dependencies": {
+        "@types/fs-extra": "^7.0.0",
+        "@types/ramda": "^0.26.9",
+        "chalk": "^2.4.2",
+        "fs-extra": "^8.0.1",
+        "ramda": "^0.26.1",
+        "semver": "^6.1.1",
+        "simple-git": "^1.115.0"
+    }
 }
