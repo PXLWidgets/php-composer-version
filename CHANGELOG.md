@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0]
+## [Unreleased]
+
+- Added CLI arguments documentation to README.
+
+## [1.1.0] - 2019-06-20
 
 ### Added
 - This Changelog file  
@@ -15,11 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     This allows for combining the version commit's changes with a CHANGELOG update, for instance.  
 - CLI option to toggle also updating the version in `package.json`
     > As of this release disabled by default - see 'Changed'
-
 - Add CLI help page
 
 ### Changed
-- Sync of package.json is now omitted by default
+- Sync of version in package.json is now omitted by default
     > This allows users to do a global installation of this package, so that the PHP package 
 under development does not have to have a `package.json` file in the repository.
 

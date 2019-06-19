@@ -3,7 +3,7 @@
 This is a small node utility to bump versions of php-composer packages, 
 similar to how `npm version` works. On input of a new version number:
 
-1. The new version is written to the project's `package.json`
+1. If enabled through CLI option (`-p`), the new version is written to the project's `package.json`
 2. The new version is written to the project's `composer.json`
 3. Above changes are committed with a message of the version number
 4. The created commit is tagged with the version number
@@ -42,6 +42,13 @@ and then perform the steps mentioned above:
 >     version > |
 > ``` 
 
+### CLI Options
+```text
+-h, --help               Display this help content.
+-v, --version            Show version number.
+-d, --allow-dirty        Allow additional changes to be committed with the version commit.
+-p, --sync-package-json  Toggle additional update of the version number in package.json.
+```
 ## License
 
 Copyright (c) 2019 PXL.Widgets B.V.
