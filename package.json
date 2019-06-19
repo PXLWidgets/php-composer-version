@@ -1,11 +1,8 @@
 {
   "name": "@pxlwidgets/php-composer-version",
-  "version": "1.0.0-rc1",
+  "version": "0.1.0",
   "description": "Node script for a php-composer equivalent to the version command of other package managers",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "bin": {
     "php-composer-version": "./src/index.js"
   },

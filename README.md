@@ -1,5 +1,7 @@
 # php-composer-version
 
+[![npm version](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version.svg)](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version)
+
 Simple utility to bump versions of php-composer packages, 
 similar to how `npm version` works.
 
