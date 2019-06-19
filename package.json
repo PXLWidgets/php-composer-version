@@ -2,6 +2,7 @@
   "name": "@pxlwidgets/php-composer-version",
   "version": "1.0.0-rc2",
   "description": "Node script for a php-composer equivalent to the version command of other package managers",
+  "repository": "git+https://github.com/PXLWidgets/php-composer-version.git",
   "main": "index.js",
   "bin": {
     "php-composer-version": "./src/index.js"
