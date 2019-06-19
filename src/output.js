@@ -186,6 +186,7 @@ Object.assign(exports, {
                               
 ${chalk.yellow('Options:')}
     ${chalk.green('-h, --help')}               Display this help message.
+    ${chalk.green('-v, --version')}            Show version number.
     ${chalk.green('-d, --allow-dirty')}        Allow additional changes to be committed with the version commit.
     ${chalk.green('-p, --sync-package-json')}  Toggle additional update of the version number in package.json.
 `);

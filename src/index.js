@@ -11,13 +11,19 @@ const { mergeDeepRight } = require("ramda");
 
 const cliFlags = {
     help: ['-h', '--help'],
+    version: ['-v', '--version'],
 };
 
-const isHelp = config.CLI_ARGUMENTS.some((arg) => cliFlags.help.includes(arg));
+if (argsHasFlag(cliFlags.version)) {
+    console.log(config.SELF_VERSION);
+    done();
+}
 
-output.heading(isHelp);
+const isHelpRequest    = argsHasFlag(cliFlags.help);
 
-if (isHelp) {
+output.heading();
+
+if (isHelpRequest) {
     output.help();
     done();
 }
@@ -197,4 +203,17 @@ function done() {
 
 function fail() {
     process.exit(1);
+}
+
+/**
+ * @param {string[]} flags
+ * @return {boolean}
+ */
+function argsHasFlag(flags) {
+    for (const flag of flags) {
+        if (config.CLI_ARGUMENTS.includes(flag)) {
+            return true;
+        }
+    }
+    return false;
 }

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - This Changelog file  
 - CLI option for displaying CLI help page. 
+- CLI option for displaying php-composer-version version number. 
 - CLI option to allow operating on a dirty working directory
     > When set, additional project changes may exist when running php-composer-version.
     This allows for combining the version commit's changes with a CHANGELOG update, for instance.  
