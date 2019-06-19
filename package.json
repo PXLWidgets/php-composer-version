@@ -1,0 +1,33 @@
+{
+  "name": "@pxlwidgets/php-composer-version",
+  "version": "1.0.0-rc1",
+  "description": "Node script for a php-composer equivalent to the version command of other package managers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "php-composer-version": "./src/index.js"
+  },
+  "keywords": [
+    "PHP",
+    "Composer",
+    "Node",
+    "bin",
+    "package.json",
+    "composer.json",
+    "git",
+    "git-tag"
+  ],
+  "author": "Jeffrey Westerkamp",
+  "license": "MIT",
+  "dependencies": {
+    "@types/fs-extra": "^7.0.0",
+    "@types/ramda": "^0.26.9",
+    "chalk": "^2.4.2",
+    "fs-extra": "^8.0.1",
+    "ramda": "^0.26.1",
+    "semver": "^6.1.1",
+    "simple-git": "^1.115.0"
+  }
+}
