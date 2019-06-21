@@ -39,6 +39,7 @@ under development does not have to have a `package.json` file in the repository.
 - Git tag availability check
 - Version compare check (a new version must be greater than the current)
 
-[Unreleased]: https://github.com/PXLWidgets/php-composer-version/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/PXLWidgets/php-composer-version/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/PXLWidgets/php-composer-version/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/PXLWidgets/php-composer-version/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/PXLWidgets/php-composer-version/tree/v1.0.0
