@@ -43,7 +43,7 @@ if (isHelpRequest) {
 
         const status = await git().status();
 
-        if (status.current !== 'master') {
+        if (status.current !== config.branch) {
             output.gitBranchError(status.current);
             return fail();
         }

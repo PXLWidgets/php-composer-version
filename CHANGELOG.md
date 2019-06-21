@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- CLI option for specifying the target branch of the version commit
+
 ## [1.1.1] - 2019-06-21
 
 - Added CLI arguments documentation to README.

@@ -46,6 +46,7 @@ and then perform the steps mentioned above:
 ```text
 -h, --help               Display this help content.
 -v, --version            Show version number.
+-b, --branch <name>      Set the branch for the version commit. If on any other branch, the process will fail. [default: 'master']
 -d, --allow-dirty        Allow additional changes to be committed with the version commit.
 -p, --sync-package-json  Toggle additional update of the version number in package.json.
 ```

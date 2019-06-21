@@ -1,3 +1,4 @@
+const { clone } = require('ramda');
 const { resolve } = require('path');
 const Fs = require('fs-extra');
 
@@ -25,6 +26,7 @@ const COMPOSER_JSON_DATA = Fs.existsSync(COMPOSER_JSON_PATH)
 const config = {
     syncPackageJson: false,
     allowDirty: false,
+    branch: 'master',
 
     CURRENT_VERSION: COMPOSER_JSON_DATA.version,
     PACKAGE_JSON_PATH,
@@ -37,7 +39,17 @@ const config = {
     SELF_URL,
 };
 
-for (const arg of CLI_ARGUMENTS) {
+const argv = clone(CLI_ARGUMENTS);
+
+while (argv.length) {
+
+    let arg = argv.shift();
+    const indexOfEqualSign = arg.indexOf('=');
+
+    if (indexOfEqualSign !== -1) {
+        arg = arg.slice(0, indexOfEqualSign);
+        argv.unshift(arg.slice(indexOfEqualSign + 1));
+    }
 
     switch (arg) {
         case '-d': case '--allow-dirty':
@@ -46,6 +58,10 @@ for (const arg of CLI_ARGUMENTS) {
 
         case '-p': case '--sync-package-json':
             config.syncPackageJson = true;
+            break;
+
+        case '-b': case '--branch':
+            config.branch = argv.shift();
             break;
     }
 }
