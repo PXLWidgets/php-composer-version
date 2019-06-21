@@ -78,8 +78,9 @@ Object.assign(exports, {
 
     gitBranchError(currentBranch) {
         error([
-            `Git branch error:   Cannot create release on current branch (${currentBranch})`,
-            `                    Checkout the master branch and try again.`,
+            `Git branch error:   Cannot create release on current branch '${currentBranch}'`,
+            `                    as the target branch is set to '${config.branch}'`,
+            '',
         ].join(LF))
     },
 
