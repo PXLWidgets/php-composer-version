@@ -183,7 +183,9 @@ Object.assign(exports, {
                  ..... ........ .....  .......         
                   ..... .....     ....  .....          
                    .....  ..       ..... ...
-                              
+                           
+Usage: php-composer-version [options]
+   
 ${chalk.yellow('Options:')}
     ${chalk.green('-h, --help')}               Display this help message.
     ${chalk.green('-v, --version')}            Show version number.

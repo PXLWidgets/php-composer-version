@@ -1,6 +1,6 @@
 # php-composer-version [![npm version](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version.svg)](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version)
 
-This is a small node utility to bump versions of php-composer packages, 
+This is a small CLI tool to bump versions of php-composer packages, 
 similar to how `npm version` works. On input of a new version number:
 
 1. If enabled through CLI option (`-p`), the new version is written to the project's `package.json`
@@ -8,13 +8,20 @@ similar to how `npm version` works. On input of a new version number:
 3. Above changes are committed with a message of the version number
 4. The created commit is tagged with the version number
 
+[View changelog.][changelog]
+
 ## installation
 
-- Install the package from npm:
+Install the package from npm, either globally for your system, or locally in the project.
+It depends on your needs which approach to take.
+
 ```bash
 $ npm install --save-dev @pxlwidgets/php-composer-version
 ```
-- Add a script executing the installed executable to your project's `package.json`:
+
+If you choose to install globally the script should be available under the name 
+`php-composer-version`. Otherwise add an npm script that has access to the local 
+version to `package.json`:
 
 ```json
 {
@@ -26,22 +33,36 @@ $ npm install --save-dev @pxlwidgets/php-composer-version
  
 ## Usage 
 
-Run the script from the command line from your project root:
+Run the script from the command line from your project root. 
 
 ```bash
+# for global installations
+$ php-composer-version
+# for local installations
 $ npm run bump-version
 ```
+
 The script will then prompt you for the new version to write to the repository,
 and then perform the steps mentioned above:
 
-> ```text
-> > composer-package@0.2.4 bump-version /Users/johndoe/dev/packages/composer-package
-> > php-composer-version
->
-> Enter new version number (Current version: 0.2.4)
->     version > |
-> ``` 
+> ```
+> Enter new version number (current: 0.2.3)
+>     version >
+> ```
 
+## Checks
+
+- **Version comparison**
+
+  The entered version is compared against the current version to make sure that
+  the new version is greater.
+  
+- **Git branch check**
+
+  For safety, the branch name to commit on is fixed to `master`. Most of the times
+  a new release should be a master revision. Exceptions might be revisions of 
+  pre-release stages as `alpha`, `beta` or `rc`. 
+ 
 ### CLI Options
 ```text
 -h, --help               Display this help content.
@@ -74,3 +95,5 @@ Copyright (c) 2019 PXL.Widgets B.V.
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
+
+[changelog]: https://github.com/PXLWidgets/php-composer-version/blob/master/CHANGELOG.md
