@@ -55,14 +55,25 @@ and then perform the steps mentioned above:
 - **Version comparison**
 
   The entered version is compared against the current version to make sure that
-  the new version is greater.
+  the new version is greater than the current.
   
+- **Version availability check**
+  
+    The entered version is compared against all git tags to make sure that no
+    tag already exists by the name of the version.
+    
 - **Git branch check**
 
-  For safety, the branch name to commit on is fixed to `master`. Most of the times
+  By default the branch name to commit on is fixed to `master`. Most of the times
   a new release should be a master revision. Exceptions might be revisions of 
-  pre-release stages as `alpha`, `beta` or `rc`. 
- 
+  pre-release stages as `alpha`, `beta` or `rc`. To override the target branch
+  use the `--branch` option.
+  
+- **Git status check**
+
+  If the working directory is not clean, the user is asked to continue. To skip
+  the prompt and always allow, use the `--allow-dirty` option.
+  
 ### CLI Options
 ```text
 -h, --help               Display this help content.
