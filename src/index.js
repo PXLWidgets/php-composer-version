@@ -19,11 +19,9 @@ if (argsHasFlag(cliFlags.version)) {
     done();
 }
 
-const isHelpRequest    = argsHasFlag(cliFlags.help);
-
 output.heading();
 
-if (isHelpRequest) {
+if (argsHasFlag(cliFlags.help)) {
     output.help();
     done();
 }
