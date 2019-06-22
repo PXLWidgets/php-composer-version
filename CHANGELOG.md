@@ -1,7 +1,8 @@
-# Changelog
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+# Changelog
+[![npm version](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version.svg)](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version)
+
+All notable changes to `@pxlwidgets/php-composer-version` will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
@@ -10,12 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CLI option for specifying the target branch of the version commit.
 - Additional documentation.
 
-## [1.1.1] - 2019-06-21
+## [1.1.1] (2019-06-21)
 
 ### Added
 - CLI arguments documentation to README.
 
-## [1.1.0] - 2019-06-20
+## [1.1.0] (2019-06-20)
 
 ### Added
 - This Changelog file  
@@ -33,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     > This allows users to do a global installation of this package, so that the PHP package 
 under development does not have to have a `package.json` file in the repository.
 
-## [1.0.0] - 2019-06-19 (Initial version)
+## [1.0.0] (2019-06-19) (Initial release)
 
 ### Added
 - Prompt for new version number
