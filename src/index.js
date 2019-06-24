@@ -43,7 +43,7 @@ if (argsHasFlag(cliFlags.help)) {
         const status = await git().status();
 
         if (status.current !== config.branch) {
-            output.gitBranchError(status.current);
+            output.branchConflictError(status.current);
             return fail();
         }
 

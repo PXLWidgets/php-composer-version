@@ -90,7 +90,7 @@ Object.assign(exports, {
         error('Git error: ' + e);
     },
 
-    gitBranchError(currentBranch) {
+    branchConflictError(currentBranch) {
         error([
             `Git branch error:   Cannot create release on current branch '${currentBranch}'`,
             `                    as the target branch is set to '${config.branch}'`,
