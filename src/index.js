@@ -53,11 +53,9 @@ if (argsHasFlag(cliFlags.help)) {
                 output.gitDirtyNotice(status);
             } else {
 
-                try {
-                    output.gitDirtyWarning(status);
-                    await promptContinue();
+                output.gitDirtyWarning(status);
 
-                } catch (e) {
+                if ( ! await promptContinue()) {
                     output.success('Aborting...');
                     return done();
                 }

@@ -11,7 +11,7 @@ module.exports = () => {
 
     let question = `Do you want to continue? (y/n) > `;
 
-    return new Promise((fulfill, reject) => reader.question(question, (answer) => {
+    return new Promise((fulfill) => reader.question(question, (answer) => {
 
         output.blankLine();
 
@@ -21,10 +21,10 @@ module.exports = () => {
 
         switch (answer) {
             case 'y': case 'yes':
-                return fulfill();
+                return fulfill(true);
 
             case 'n': case 'no': default:
-                return reject();
+                return fulfill(false);
         }
     }));
 };
