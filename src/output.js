@@ -27,6 +27,20 @@ function gray(message) {
     log(chalk.gray(message));
 }
 
+const processLines = {
+    versionBumpOK:
+        'Version bump            =>   OK',
+    gitTagOK:
+        'Git tag                 =>   OK',
+    gitCommitOK:
+        'Git commit              =>   OK',
+    packageOK:
+        'Update package.json     =>   OK',
+    composerOK:
+        'Update composer.json    =>   OK',
+
+};
+
 // Vertical guides :)
 // 8, 12, 16, 33, 37, 41, 88, 92, 96
 
@@ -115,11 +129,11 @@ Object.assign(exports, {
     },
 
     gitCommitOK() {
-        success(`Git commit OK`);
+        success(processLines.gitCommitOK);
     },
 
     gitTagOK() {
-        success(`Git tag OK`);
+        success(processLines.gitTagOK);
     },
 
     bumpOK() {
@@ -131,11 +145,11 @@ Object.assign(exports, {
     },
 
     versionPromptMessage() {
-        log(`Enter new version number (current: ${config.CURRENT_VERSION})`);
+        log(`Enter new version number (current version: ${config.CURRENT_VERSION || 'none'})`);
     },
 
     composerVersionUpdateOK() {
-        success('Update composer.json OK');
+        success(processLines.composerOK);
     },
 
     composerVersionUpdateError(message) {
@@ -146,7 +160,7 @@ Object.assign(exports, {
     },
 
     packageVersionUpdateOK() {
-        success('Update package.json OK');
+        success(processLines.packageOK);
     },
 
     packageVersionUpdateError(message) {
