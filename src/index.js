@@ -194,14 +194,6 @@ function formatJSON(object) {
     return JSON.stringify(object, null, 4) + '\n';
 }
 
-function done() {
-    process.exit(0);
-}
-
-function fail() {
-    process.exit(1);
-}
-
 /**
  * @param {string[]} flags
  * @return {boolean}
