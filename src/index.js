@@ -8,6 +8,7 @@ const promptVersion = require('./prompt/version');
 const promptContinue = require('./prompt/continue');
 const semver = require('semver');
 const { mergeDeepRight } = require("ramda");
+const { done, fail } = require('./helpers');
 
 const cliFlags = {
     help: ['-h', '--help'],
