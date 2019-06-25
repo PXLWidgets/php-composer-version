@@ -40,6 +40,13 @@ if (argsHasFlag(cliFlags.help)) {
             return fail();
         }
 
+        const branches = await git().branchLocal();
+
+        if ( ! branches.all.includes(config.branch)) {
+            output.notABranchError(config.branch);
+            return fail();
+        }
+
         const status = await git().status();
 
         if (status.current !== config.branch) {

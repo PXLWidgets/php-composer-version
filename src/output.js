@@ -90,6 +90,13 @@ Object.assign(exports, {
         error('Git error: ' + e);
     },
 
+    notABranchError(name) {
+        error([
+            `Git branch error:   Invalid branch name '${name}'.`,
+            '',
+        ].join(LF))
+    },
+
     branchConflictError(currentBranch) {
         error([
             `Git branch error:   Cannot create release on current branch '${currentBranch}'`,
