@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Branch existence check for branch names provided with `--branch`
 
+### Fixed
+- Runtime error when the `composer.json` file has no version key.
+
 ## [1.1.2] (2019-06-22)
 ### Added
 - CLI option for specifying the target branch of the version commit.

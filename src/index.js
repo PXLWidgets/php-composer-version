@@ -117,6 +117,7 @@ async function getNewVersionFromUser(attempt = 1) {
 
         await expectValidVersion(version);
         output.bumpOK();
+        output.blankLine();
         return semver.clean(version);
 
     } catch (error) {
@@ -188,13 +189,13 @@ async function commitAndTag(version) {
  */
 async function expectValidVersion(version) {
     if (semver.valid(version) === null) throw `Invalid version number (https://semver.org/)`;
-    if (semver.lte(version, config.CURRENT_VERSION)) throw `New version must be greater than current version`;
+    if (config.CURRENT_VERSION && semver.lte(version, config.CURRENT_VERSION)) throw `New version must be greater than current version`;
     if (await tagExists(version)) throw `Tag '${version}' already exists`;
 }
 
 async function tagExists(version) {
     const tags = await git().tags();
-    return tags.all.some((tag) => semver.clean(tag) === semver.clean(version));
+    return tags.all.some((tag) => tag === semver.clean(version));
 }
 
 function formatJSON(object) {
