@@ -23,21 +23,11 @@ const COMPOSER_JSON_DATA = Fs.existsSync(COMPOSER_JSON_PATH)
     ? JSON.parse(Fs.readFileSync(COMPOSER_JSON_PATH))
     : {};
 
-const config = {
+const options = {
     syncPackageJson: false,
     allowDirty: false,
     branch: 'master',
     newVersion: null,
-
-    CURRENT_VERSION: COMPOSER_JSON_DATA.version,
-    PACKAGE_JSON_PATH,
-    PACKAGE_JSON_DATA,
-    COMPOSER_JSON_PATH,
-    COMPOSER_JSON_DATA,
-    CLI_ARGUMENTS,
-    SELF_VERSION,
-    SELF_DESCRIPTION,
-    SELF_URL,
 };
 
 const argv = clone(CLI_ARGUMENTS);
@@ -55,35 +45,35 @@ while (argv.length) {
     switch (arg) {
         case '-d':
         case '--allow-dirty':
-            config.allowDirty = true;
+            options.allowDirty = true;
             break;
 
         case '-p':
         case '--sync-package-json':
-            config.syncPackageJson = true;
+            options.syncPackageJson = true;
             break;
 
         case '-b':
         case '--branch':
-            config.branch = argv.shift();
+            options.branch = argv.shift();
             break;
 
         case '-V':
         case '--set-version':
-            config.newVersion = argv.shift();
+            options.newVersion = argv.shift();
     }
 }
 
-exports.syncPackageJson    = config.syncPackageJson;
-exports.allowDirty         = config.allowDirty;
-exports.branch             = config.branch;
-exports.newVersion         = config.newVersion;
-exports.PACKAGE_JSON_PATH  = config.PACKAGE_JSON_PATH;
-exports.PACKAGE_JSON_DATA  = config.PACKAGE_JSON_DATA;
-exports.COMPOSER_JSON_PATH = config.COMPOSER_JSON_PATH;
-exports.COMPOSER_JSON_DATA = config.COMPOSER_JSON_DATA;
-exports.CLI_ARGUMENTS      = config.CLI_ARGUMENTS;
-exports.SELF_VERSION       = config.SELF_VERSION;
-exports.SELF_DESCRIPTION   = config.SELF_DESCRIPTION;
-exports.SELF_URL           = config.SELF_URL;
+exports.syncPackageJson    = options.syncPackageJson;
+exports.allowDirty         = options.allowDirty;
+exports.branch             = options.branch;
+exports.newVersion         = options.newVersion;
+exports.PACKAGE_JSON_PATH  = PACKAGE_JSON_PATH;
+exports.PACKAGE_JSON_DATA  = PACKAGE_JSON_DATA;
+exports.COMPOSER_JSON_PATH = COMPOSER_JSON_PATH;
+exports.COMPOSER_JSON_DATA = COMPOSER_JSON_DATA;
+exports.CLI_ARGUMENTS      = CLI_ARGUMENTS;
+exports.SELF_VERSION       = SELF_VERSION;
+exports.SELF_DESCRIPTION   = SELF_DESCRIPTION;
+exports.SELF_URL           = SELF_URL;
 exports.CURRENT_VERSION    = COMPOSER_JSON_DATA.version;
