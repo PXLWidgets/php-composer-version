@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] (2019-07-19)
+
 ### Added
 - Branch existence check for branch names provided with `--branch`
 - CLI option `-V, --set-version <version>` for providing a version as CLI argument.
@@ -15,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Runtime error when the `composer.json` file has no version key.
 
 ## [1.1.2] (2019-06-22)
+
 ### Added
 - CLI option for specifying the target branch of the version commit.
 - Additional documentation.
@@ -53,7 +56,8 @@ under development does not have to have a `package.json` file in the repository.
 - Git tag availability check
 - Version compare check (a new version must be greater than the current)
 
-[Unreleased]: https://github.com/PXLWidgets/php-composer-version/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/PXLWidgets/php-composer-version/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/PXLWidgets/php-composer-version/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/PXLWidgets/php-composer-version/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/PXLWidgets/php-composer-version/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/PXLWidgets/php-composer-version/compare/v1.0.0...v1.1.0
