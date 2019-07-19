@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Fixed
+- Missing CLI option documentation for `--set-version`
+
 ## [1.2.0] (2019-07-19)
 
 ### Added
