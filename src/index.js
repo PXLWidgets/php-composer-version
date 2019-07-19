@@ -10,19 +10,19 @@ const semver = require('semver');
 const { mergeDeepRight } = require("ramda");
 const { done, fail } = require('./helpers');
 
-const cliFlags = {
-    help: ['-h', '--help'],
+const selfInfoFlags = {
+    help:    ['-h', '--help'],
     version: ['-v', '--version'],
 };
 
-if (argsHasFlag(cliFlags.version)) {
+if (argsHasFlag(selfInfoFlags.version)) {
     console.log(config.SELF_VERSION);
     done();
 }
 
 output.heading();
 
-if (argsHasFlag(cliFlags.help)) {
+if (argsHasFlag(selfInfoFlags.help)) {
     output.help();
     done();
 }
