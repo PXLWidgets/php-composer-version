@@ -9,6 +9,7 @@ function done() {
  * @return never
  */
 function fail() {
+    console.log('Failed.');
     process.exit(1);
 }
 
