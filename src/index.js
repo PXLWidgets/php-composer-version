@@ -74,17 +74,28 @@ if (argsHasFlag(cliFlags.help)) {
         return fail();
     }
 
-    const version = await getNewVersionFromUser();
+    let newVersion;
+
+    if (config.newVersion) {
+        try {
+            newVersion = await expectValidVersion(config.newVersion);
+        } catch (e) {
+            output.error(e.message);
+            fail();
+        }
+    } else {
+        newVersion = await getNewVersionFromUser();
+    }
 
     try {
         if (config.syncPackageJson) {
-            await writeVersionToPackageJson(version);
+            await writeVersionToPackageJson(newVersion);
         }
 
-        await writeVersionToComposerJson(version);
-        await commitAndTag(version);
+        await writeVersionToComposerJson(newVersion);
+        await commitAndTag(newVersion);
 
-        output.done(version);
+        output.done(newVersion);
         done();
 
     } catch (e) {
@@ -188,9 +199,23 @@ async function commitAndTag(version) {
  * @return {version}
  */
 async function expectValidVersion(version) {
-    if (semver.valid(version) === null) throw `Invalid version number (https://semver.org/)`;
-    if (config.CURRENT_VERSION && semver.lte(version, config.CURRENT_VERSION)) throw `New version must be greater than current version`;
-    if (await tagExists(version)) throw `Tag '${version}' already exists`;
+
+    if (semver.valid(version) === null) {
+
+        throw new Error(`Invalid version number '${version}'`);
+    }
+
+    if (config.CURRENT_VERSION && semver.lte(version, config.CURRENT_VERSION)) {
+
+        throw new Error(`New version '${version}' must be greater than current version '${config.CURRENT_VERSION}'`);
+    }
+
+    if (await tagExists(version)) {
+
+        throw new Error(`Tag '${version}' already exists`);
+    }
+
+    return version;
 }
 
 async function tagExists(version) {

@@ -27,6 +27,7 @@ const config = {
     syncPackageJson: false,
     allowDirty: false,
     branch: 'master',
+    newVersion: null,
 
     CURRENT_VERSION: COMPOSER_JSON_DATA.version,
     PACKAGE_JSON_PATH,
@@ -63,6 +64,9 @@ while (argv.length) {
         case '-b': case '--branch':
             config.branch = argv.shift();
             break;
+
+        case '-V': case '--set-version':
+            config.newVersion = argv.shift();
     }
 }
 

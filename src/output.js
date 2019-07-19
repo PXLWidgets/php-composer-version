@@ -213,6 +213,7 @@ ${chalk.yellow('Self info:')}
     ${chalk.green('-v, --version')}                Show current version of php-composer-version.
     
 ${chalk.yellow('Options:')}
+    ${chalk.green('-V, --set-version <version>')}  The new package version to write. If not provided, php-composer-version will prompt interactively.
     ${chalk.green('-b, --branch <name>')}          Set the branch for the version commit. If on any other branch, the process will fail. ${chalk.yellow('[default: "master"]')} 
     ${chalk.green('-d, --allow-dirty')}            Allow additional changes to be committed with the version commit.
     ${chalk.green('-p, --sync-package-json')}      Toggle additional update of the version number in package.json.
