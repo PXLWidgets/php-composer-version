@@ -71,20 +71,24 @@ and then perform the steps mentioned above:
   
 - **Git status check**
 
-  If the working directory is not clean, the user is asked to continue. To skip
-  the prompt and always allow, use the `--allow-dirty` option.
+  If the working directory is not clean, the user is asked paermission to continue. 
+  To skip the prompt and always allow additional changes,
+  use the `--allow-dirty` option.
   
 ### CLI Options
 ```text
--h, --help               Display this help content.
--v, --version            Show version number.
--b, --branch <name>      Set the branch for the version commit. If on any other branch, the process will fail. [default: 'master']
--d, --allow-dirty        Allow additional changes to be committed with the version commit.
--p, --sync-package-json  Toggle additional update of the version number in package.json.
+Self info:
+    -h, --help                   Display this help message.
+    -v, --version                Show current version of php-composer-version.
+
+Options:
+    -b, --branch <name>          Set the branch for the version commit. If on any other branch, the process will fail. [default: "master"]
+    -d, --allow-dirty            Allow additional changes to be committed with the version commit.
+    -p, --sync-package-json      Toggle additional update of the version number in package.json.
 ```
 ## License
 
-MIT License
+The MIT License (MIT)
 
 Copyright (c) 2019 PXL.Widgets B.V.
 
