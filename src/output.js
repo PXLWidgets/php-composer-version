@@ -1,8 +1,5 @@
 const chalk = require('chalk');
 const config = require('./config');
-const git = require('./git');
-
-const { resolve } = require('path');
 
 const LF = '\n';
 const TAB = '\t';

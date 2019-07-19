@@ -190,6 +190,7 @@ function filesToCommit() {
     if (config.syncPackageJson) {
         files.push(config.PACKAGE_JSON_PATH);
     }
+
     return files;
 }
 

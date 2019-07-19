@@ -53,22 +53,37 @@ while (argv.length) {
     }
 
     switch (arg) {
-        case '-d': case '--allow-dirty':
+        case '-d':
+        case '--allow-dirty':
             config.allowDirty = true;
             break;
 
-        case '-p': case '--sync-package-json':
+        case '-p':
+        case '--sync-package-json':
             config.syncPackageJson = true;
             break;
 
-        case '-b': case '--branch':
+        case '-b':
+        case '--branch':
             config.branch = argv.shift();
             break;
 
-        case '-V': case '--set-version':
+        case '-V':
+        case '--set-version':
             config.newVersion = argv.shift();
     }
 }
 
-Object.assign(exports, config);
-
+exports.syncPackageJson    = config.syncPackageJson;
+exports.allowDirty         = config.allowDirty;
+exports.branch             = config.branch;
+exports.newVersion         = config.newVersion;
+exports.PACKAGE_JSON_PATH  = config.PACKAGE_JSON_PATH;
+exports.PACKAGE_JSON_DATA  = config.PACKAGE_JSON_DATA;
+exports.COMPOSER_JSON_PATH = config.COMPOSER_JSON_PATH;
+exports.COMPOSER_JSON_DATA = config.COMPOSER_JSON_DATA;
+exports.CLI_ARGUMENTS      = config.CLI_ARGUMENTS;
+exports.SELF_VERSION       = config.SELF_VERSION;
+exports.SELF_DESCRIPTION   = config.SELF_DESCRIPTION;
+exports.SELF_URL           = config.SELF_URL;
+exports.CURRENT_VERSION    = COMPOSER_JSON_DATA.version;
