@@ -54,13 +54,18 @@ if (argsHasFlag(selfInfoFlags.help)) {
             return fail();
         }
 
-        if ( ! status.isClean()) {
+        const staged = await git().diff([
+            '--name-status',
+            '--cached',
+        ]);
+
+        if (staged !== '') {
 
             if (config.allowDirty) {
-                output.gitDirtyNotice(status);
+                output.gitDirtyNotice(staged);
             } else {
 
-                output.gitDirtyWarning(status);
+                output.gitDirtyWarning(staged);
 
                 if ( ! await promptContinue()) {
                     output.success('Aborting...');
@@ -178,10 +183,20 @@ async function writeVersionToPackageJson(version) {
     return version;
 }
 
+function filesToCommit() {
+
+    const files = [config.COMPOSER_JSON_PATH];
+
+    if (config.syncPackageJson) {
+        files.push(config.PACKAGE_JSON_PATH);
+    }
+    return files;
+}
+
 async function commitAndTag(version) {
 
     try {
-        await git().add('./');
+        await git().add(filesToCommit());
         await git().commit(version);
         output.gitCommitOK();
 

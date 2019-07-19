@@ -1,5 +1,7 @@
 const chalk = require('chalk');
 const config = require('./config');
+const git = require('./git');
+
 const { resolve } = require('path');
 
 const LF = '\n';
@@ -46,18 +48,25 @@ const processLines = {
 
 /**
  *
- * @param status
+ * @param {string} staged - raw output of `$ git diff --name-status --cached`
  * @return {string}
  */
-function changedFilesContent(status) {
-    const files = status.files.map((file) => (
-        `                    ${resolve(process.cwd(), file.path)}`
-    ));
+function changedFilesContent(staged) {
+
+    const fileLines = staged
+        .replace(/^A\t/mg, 'Added:    ')
+        .replace(/^M\t/mg, 'Modified: ')
+        .replace(/^D\t/mg, 'Deleted:  ')
+        .replace(/(\S+)$/mg, `${process.cwd()}/$1`)
+        .split(LF)
+        .map((line) => (
+        `                    ${line}`
+        ));
 
     return [
-        '                    Files to be committed:',
-        '                    ----------------------',
-        ...files,
+        '                    Changes to be committed:',
+        '                    ------------------------',
+        ...fileLines,
         '',
     ].join(LF);
 }
@@ -106,32 +115,33 @@ Object.assign(exports, {
     },
 
     /**
-     * @param {StatusResult} status
+     * @param {string} staged
      */
-    gitDirtyNotice(status) {
+    gitDirtyNotice(staged) {
 
         gray([
             '',
-            `Git status notice:  Working directory not clean. Local changes will`,
-            `                    be committed along with the updated files.`,
+            `Git status notice:  Git stage not clean. Staged changes will be committed along with the updated files.`,
             '',
         ].join(LF));
 
 
         gray(
-            changedFilesContent(status)
+            changedFilesContent(staged)
         );
     },
 
-    gitDirtyWarning(status) {
+    /**
+     * @param {string} staged
+     */
+    gitDirtyWarning(staged) {
         warning([
-            `Git status warning: Working directory not clean. Local changes will`,
-            `                    be committed along with the updated files.`,
+            `Git status warning: Git stage not clean. Staged changes will be committed along with the updated files.`,
             '',
         ].join(LF));
 
         gray(
-            changedFilesContent(status)
+            changedFilesContent(staged)
         );
     },
 

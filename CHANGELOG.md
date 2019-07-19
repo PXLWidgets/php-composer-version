@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Now only adds touched files to Git stage before version commit, whereas before
+  the entire working copy was committed when the option **allow dirty** was toggled, 
+  and there were unstaged changes. 
+
 ## [1.2.1] (2019-07-19)
 
-## Fixed
+### Fixed
 - Missing CLI option documentation for `--set-version`
 
 ## [1.2.0] (2019-07-19)
