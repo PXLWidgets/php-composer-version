@@ -1,7 +1,7 @@
 {
     "name": "@pxlwidgets/php-composer-version",
     "version": "1.1.2",
-    "description": "A small node utility to bump versions of php-composer packages, similar to how npm version works.",
+    "description": "A small CLI tool to bump versions of php-composer packages, similar to how npm version works.",
     "repository": "git+https://github.com/PXLWidgets/php-composer-version.git",
     "homepage": "https://github.com/PXLWidgets/php-composer-version",
     "main": "index.js",
@@ -9,14 +9,18 @@
         "php-composer-version": "./src/index.js"
     },
     "keywords": [
-        "PHP",
-        "Composer",
-        "Node",
+        "php",
+        "composer",
+        "node",
         "bin",
         "package.json",
         "composer.json",
         "git",
-        "git-tag"
+        "tag",
+        "package"
+    ],
+    "contributors": [
+        "Jeffrey Westerkamp <jeffrey@pxlwidgets.com> (https://github.com/JJWesterkamp)"
     ],
     "author": "Jeffrey Westerkamp <jeffrey@pxlwidgets.com> (https://github.com/JJWesterkamp)",
     "license": "MIT",
