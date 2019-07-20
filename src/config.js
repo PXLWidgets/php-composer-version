@@ -16,11 +16,11 @@ const [PACKAGE_JSON_PATH, COMPOSER_JSON_PATH] = [
 ];
 
 const PACKAGE_JSON_DATA = Fs.existsSync(PACKAGE_JSON_PATH)
-    ? JSON.parse(Fs.readFileSync(PACKAGE_JSON_PATH))
+    ? JSON.parse(Fs.readFileSync(PACKAGE_JSON_PATH, { encoding: 'utf8' }))
     : {};
 
 const COMPOSER_JSON_DATA = Fs.existsSync(COMPOSER_JSON_PATH)
-    ? JSON.parse(Fs.readFileSync(COMPOSER_JSON_PATH))
+    ? JSON.parse(Fs.readFileSync(COMPOSER_JSON_PATH, { encoding: 'utf8' }))
     : {};
 
 const options = {
