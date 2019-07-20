@@ -72,8 +72,6 @@ Object.assign(exports, {
 
     success,
     error,
-    warning,
-    gray,
     blankLine,
 
     heading() {
