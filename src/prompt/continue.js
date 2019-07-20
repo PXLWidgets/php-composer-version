@@ -9,7 +9,7 @@ module.exports = () => {
         terminal: false,
     });
 
-    let question = `Do you want to continue? (y/n) > `;
+    let question = `Do you want to continue? (y/N) > `;
 
     return new Promise((fulfill) => reader.question(question, (answer) => {
 

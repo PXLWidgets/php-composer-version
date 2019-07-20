@@ -1,4 +1,6 @@
 /**
+ * Exit the process with success semantics.
+ *
  * @return never
  */
 function done() {
@@ -6,6 +8,8 @@ function done() {
 }
 
 /**
+ * Exit the process with error semantics.
+ *
  * @return never
  */
 function fail() {

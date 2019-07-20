@@ -40,8 +40,6 @@ const processLines = {
 
 };
 
-// Vertical guides :)
-// 8, 12, 16, 33, 37, 41, 88, 92, 96
 
 /**
  *
@@ -51,21 +49,20 @@ const processLines = {
 function changedFilesContent(staged) {
 
     const fileLines = staged
-        .replace(/^A\t/mg, 'Added:    ')
-        .replace(/^M\t/mg, 'Modified: ')
-        .replace(/^D\t/mg, 'Deleted:  ')
-        .replace(/(\S+)$/mg, `${process.cwd()}/$1`)
-        .split(LF)
-        .map((line) => (
-        `                    ${line}`
-        ));
+        .replace(/^A\t/mg,      'Added:    ')
+        .replace(/^M\t/mg,      'Modified: ')
+        .replace(/^D\t/mg,      'Deleted:  ')
+        .replace(/^R\d+\t/mg,   'Renamed:  ')
+        .replace(/(\S+)$/mg,    `${process.cwd()}/$1`)
+        .split(LF);
 
     return [
-        '                    Changes to be committed:',
-        '                    ------------------------',
+        'Changes to be committed:',
+        '------------------------',
         ...fileLines,
-        '',
-    ].join(LF);
+    ]
+        .map((line) => TAB + line)
+        .join(LF);
 }
 
 Object.assign(exports, {
@@ -95,18 +92,20 @@ Object.assign(exports, {
     },
 
     notABranchError(name) {
-        error([
+        error(
             `Git branch error:   Invalid branch name '${name}'.`,
-            '',
-        ].join(LF))
+        );
+
+        blankLine();
     },
 
     branchConflictError(currentBranch) {
         error([
             `Git branch error:   Cannot create release on current branch '${currentBranch}'`,
             `                    as the target branch is set to '${config.branch}'`,
-            '',
-        ].join(LF))
+        ].join(LF));
+
+        blankLine();
     },
 
     /**
@@ -114,30 +113,24 @@ Object.assign(exports, {
      */
     gitDirtyNotice(staged) {
 
-        gray([
-            '',
-            `Git status notice:  Git stage not clean. Staged changes will be committed along with the updated files.`,
-            '',
-        ].join(LF));
-
-
+        blankLine();
         gray(
-            changedFilesContent(staged)
+            `Git status notice:  Git stage not clean. Staged changes will be committed along with the updated files.`,
         );
+        blankLine();
+        gray(changedFilesContent(staged));
     },
 
     /**
      * @param {string} staged
      */
     gitDirtyWarning(staged) {
-        warning([
+        warning(
             `Git status warning: Git stage not clean. Staged changes will be committed along with the updated files.`,
-            '',
-        ].join(LF));
-
-        gray(
-            changedFilesContent(staged)
         );
+        blankLine();
+
+        gray(changedFilesContent(staged));
     },
 
     gitCommitOK() {
@@ -165,10 +158,9 @@ Object.assign(exports, {
     },
 
     composerVersionUpdateError(message) {
-        console.error(
-            chalk.red('Failed to save new version to composer.json:'),
-            LF + TAB + message
-        );
+        error('Failed to save new version to composer.json:');
+        gray(TAB + message);
+        blankLine();
     },
 
     packageVersionUpdateOK() {
@@ -176,13 +168,17 @@ Object.assign(exports, {
     },
 
     packageVersionUpdateError(message) {
-        console.error(
-            chalk.red('Failed to save new version to package.json:'),
-            LF + TAB + message
-        );
+        error('Failed to save new version to package.json:');
+        gray(TAB + message);
+        blankLine();
     },
 
-    done(newVersion) {
+    rollbackNotice() {
+        log(`Rolling back package manager files...`);
+        blankLine();
+    },
+
+    updateDone(newVersion) {
         success(`Done. (${config.CURRENT_VERSION} => ${newVersion})${LF}`);
     },
 

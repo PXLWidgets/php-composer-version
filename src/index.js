@@ -1,32 +1,34 @@
 #!/usr/bin/env node
 
 const config = require('./config');
-const output = require('./output');
 const Fs = require('fs-extra');
-const git = require('./git');
-const promptVersion = require('./prompt/version');
-const promptContinue = require('./prompt/continue');
+const git = require('./bootstrap/git.bootstrap');
+const output = require('./output');
 const semver = require('semver');
-const { mergeDeepRight } = require("ramda");
 const { done, fail } = require('./helpers');
+const { mergeDeepRight, intersection } = require("ramda");
+const { promptVersion, promptContinue } = require('./prompt');
 
 const selfInfoFlags = {
     help:    ['-h', '--help'],
     version: ['-v', '--version'],
 };
 
-if (argsHasFlag(selfInfoFlags.version)) {
+if (argvContainsAny(...selfInfoFlags.version)) {
     console.log(config.SELF_VERSION);
     done();
 }
 
 output.heading();
 
-if (argsHasFlag(selfInfoFlags.help)) {
+if (argvContainsAny(...selfInfoFlags.help)) {
     output.help();
     done();
 }
 
+/**
+ * Main function (IIFE)
+ */
 (async function main() {
 
     output.blankLine();
@@ -84,8 +86,9 @@ if (argsHasFlag(selfInfoFlags.help)) {
     if (config.newVersion) {
         try {
             newVersion = await expectValidVersion(config.newVersion);
+            output.bumpOK();
         } catch (e) {
-            output.error(e.message);
+            output.bumpError(e);
             fail();
         }
     } else {
@@ -100,11 +103,12 @@ if (argsHasFlag(selfInfoFlags.help)) {
         await writeVersionToComposerJson(newVersion);
         await commitAndTag(newVersion);
 
-        output.done(newVersion);
+        output.updateDone(newVersion);
         done();
 
     } catch (e) {
-        output.error('Error: ' + e + '. Rolling back package manager files');
+        output.rollbackNotice();
+
         await rollbackComposerJson();
 
         if (config.syncPackageJson) {
@@ -143,14 +147,41 @@ async function getNewVersionFromUser(attempt = 1) {
     }
 }
 
+/**
+ * Reverts the package.json file to its state at the start of this process,
+ * if it currently exists. No action is taken otherwise.
+ *
+ * @return {Promise<void>}
+ */
 async function rollbackComposerJson() {
+    if ( ! Fs.existsSync(config.COMPOSER_JSON_PATH)) {
+        return;
+    }
+
     await Fs.writeFile(config.COMPOSER_JSON_PATH, formatJSON(config.COMPOSER_JSON_DATA));
 }
 
+/**
+ * Reverts the package.json file to its state at the start of this process,
+ * if it currently exists. No action is taken otherwise.
+ *
+ * @return {Promise<void>}
+ */
 async function rollbackPackageJson() {
+    if ( ! Fs.existsSync(config.PACKAGE_JSON_PATH)) {
+        return;
+    }
+
     await Fs.writeFile(config.PACKAGE_JSON_PATH, formatJSON(config.PACKAGE_JSON_DATA));
 }
 
+/**
+ * Writes given version to the project's composer.json file. If the file does not yet
+ * exist, it is created with `"version"` as only key.
+ *
+ * @param version
+ * @return {Promise<*>}
+ */
 async function writeVersionToComposerJson(version) {
 
     const json = formatJSON(mergeDeepRight(config.COMPOSER_JSON_DATA, { version }));
@@ -167,6 +198,13 @@ async function writeVersionToComposerJson(version) {
     return version;
 }
 
+/**
+ * Writes given version to the project's package.json file. If the file does not yet
+ * exist, it is created with `"version"` as only key.
+ *
+ * @param version
+ * @return {Promise<*>}
+ */
 async function writeVersionToPackageJson(version) {
 
     const json = formatJSON(mergeDeepRight(config.PACKAGE_JSON_DATA, { version }));
@@ -183,6 +221,11 @@ async function writeVersionToPackageJson(version) {
     return version;
 }
 
+/**
+ * Get the list of touched files add to the version commit.
+ *
+ * @return {*[]}
+ */
 function filesToCommit() {
 
     const files = [config.COMPOSER_JSON_PATH];
@@ -194,6 +237,14 @@ function filesToCommit() {
     return files;
 }
 
+/**
+ * Creates a commit named by given version, including all touched files, and
+ * whatever was already staged. The commit is tagged with the version number
+ * afterwards.
+ *
+ * @param version
+ * @return {Promise<void>}
+ */
 async function commitAndTag(version) {
 
     try {
@@ -211,47 +262,64 @@ async function commitAndTag(version) {
 }
 
 /**
+ * Asserts the validity of given version number as the new version for the
+ * package: It must be a valid format, and a version greater than the
+ * current version, if defined.
+ *
  * @param {string} version
  * @return {version}
  */
 async function expectValidVersion(version) {
 
     if (semver.valid(version) === null) {
-
-        throw new Error(`Invalid version number '${version}'`);
+        throw new Error(
+            `Invalid version number '${version}'`
+        );
     }
 
     if (config.CURRENT_VERSION && semver.lte(version, config.CURRENT_VERSION)) {
-
-        throw new Error(`New version '${version}' must be greater than current version '${config.CURRENT_VERSION}'`);
+        throw new Error(
+            `New version '${version}' must be greater than current version '${config.CURRENT_VERSION}'`
+        );
     }
 
     if (await tagExists(version)) {
-
-        throw new Error(`Tag '${version}' already exists`);
+        throw new Error(
+            `Tag '${version}' already exists`
+        );
     }
 
     return version;
 }
 
+/**
+ * Checks if a Git tag exists by the name of given version number.
+ *
+ * @param {string} version
+ * @return {Promise<boolean>}
+ */
 async function tagExists(version) {
     const tags = await git().tags();
     return tags.all.some((tag) => tag === semver.clean(version));
 }
 
+/**
+ * JSON stringify a given object in a readable way: with line breaks and indents.
+ *
+ * @param {object} object
+ * @return {string}
+ */
 function formatJSON(object) {
     return JSON.stringify(object, null, 4) + '\n';
 }
 
 /**
- * @param {string[]} flags
+ * Tests if any in the array of given CLI flags were actually given as argument(s)
+ * to the current process.
+ *
+ * @param {...string} flags
  * @return {boolean}
  */
-function argsHasFlag(flags) {
-    for (const flag of flags) {
-        if (config.CLI_ARGUMENTS.includes(flag)) {
-            return true;
-        }
-    }
-    return false;
+function argvContainsAny(...flags) {
+    return intersection(flags, config.CLI_ARGUMENTS).length >= 1;
 }

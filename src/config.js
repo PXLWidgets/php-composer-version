@@ -4,16 +4,18 @@ const Fs = require('fs-extra');
 
 const CLI_ARGUMENTS = process.argv.slice(2);
 
+// ------------------------------------------------------------------------------
+//      Read files
+// ------------------------------------------------------------------------------
+
 const {
     version: SELF_VERSION,
     description: SELF_DESCRIPTION,
     homepage: SELF_URL,
 } = require('../package');
 
-const [PACKAGE_JSON_PATH, COMPOSER_JSON_PATH] = [
-    resolve(process.cwd(), 'package.json'),
-    resolve(process.cwd(), 'composer.json'),
-];
+const PACKAGE_JSON_PATH  = resolve(process.cwd(), 'package.json');
+const COMPOSER_JSON_PATH = resolve(process.cwd(), 'composer.json');
 
 const PACKAGE_JSON_DATA = Fs.existsSync(PACKAGE_JSON_PATH)
     ? JSON.parse(Fs.readFileSync(PACKAGE_JSON_PATH, { encoding: 'utf8' }))
@@ -23,6 +25,10 @@ const COMPOSER_JSON_DATA = Fs.existsSync(COMPOSER_JSON_PATH)
     ? JSON.parse(Fs.readFileSync(COMPOSER_JSON_PATH, { encoding: 'utf8' }))
     : {};
 
+// ------------------------------------------------------------------------------
+//      Default options
+// ------------------------------------------------------------------------------
+
 const options = {
     syncPackageJson: false,
     allowDirty: false,
@@ -30,8 +36,11 @@ const options = {
     newVersion: null,
 };
 
-const argv = clone(CLI_ARGUMENTS);
+// ------------------------------------------------------------------------------
+//      Read CLI arguments
+// ------------------------------------------------------------------------------
 
+const argv = clone(CLI_ARGUMENTS);
 while (argv.length) {
 
     let arg = argv.shift();
@@ -76,4 +85,4 @@ exports.CLI_ARGUMENTS      = CLI_ARGUMENTS;
 exports.SELF_VERSION       = SELF_VERSION;
 exports.SELF_DESCRIPTION   = SELF_DESCRIPTION;
 exports.SELF_URL           = SELF_URL;
-exports.CURRENT_VERSION    = COMPOSER_JSON_DATA.version;
+exports.CURRENT_VERSION    = COMPOSER_JSON_DATA.version || null;
