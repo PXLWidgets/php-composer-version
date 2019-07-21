@@ -82,10 +82,11 @@ Self info:
     -v, --version                Show current version of php-composer-version.
 
 Options:
-    -V, --set-version <version>  The new package version to write. If not provided, php-composer-version will prompt interactively.
-    -b, --branch <name>          Set the branch for the version commit. If on any other branch, the process will fail. [default: "master"]
-    -d, --allow-dirty            Allow additional changes to be committed with the version commit.
-    -p, --sync-package-json      Toggle additional update of the version number in package.json.
+    -V, --set-version <new-version>  The new package version to write. If not provided, php-composer-version will prompt interactively.
+    -b, --branch <name>              Set the branch for the version commit. If on any other branch, the process will fail. [default: "master"]
+    -m, --message <message>          Specify a custom message for the version commit. %s within a given message is replaced with the version number. [default: <new-version>]
+    -d, --allow-dirty                Allow additional changes to be committed with the version commit.
+    -p, --sync-package-json          Toggle additional update of the version number in package.json.
 ```
 ## License
 

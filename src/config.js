@@ -14,7 +14,7 @@ const {
     homepage: SELF_URL,
 } = require('../package');
 
-const PACKAGE_JSON_PATH  = resolve(process.cwd(), 'package.json');
+const PACKAGE_JSON_PATH = resolve(process.cwd(), 'package.json');
 const COMPOSER_JSON_PATH = resolve(process.cwd(), 'composer.json');
 
 const PACKAGE_JSON_DATA = Fs.existsSync(PACKAGE_JSON_PATH)
@@ -30,6 +30,7 @@ const COMPOSER_JSON_DATA = Fs.existsSync(COMPOSER_JSON_PATH)
 // ------------------------------------------------------------------------------
 
 const options = {
+    commitMessage: null,
     syncPackageJson: false,
     allowDirty: false,
     branch: 'master',
@@ -70,9 +71,16 @@ while (argv.length) {
         case '-V':
         case '--set-version':
             options.newVersion = argv.shift();
+            break;
+
+        case '-m':
+        case '--message':
+            options.commitMessage = argv.shift();
+            break;
     }
 }
 
+exports.commitMessage      = options.commitMessage;
 exports.syncPackageJson    = options.syncPackageJson;
 exports.allowDirty         = options.allowDirty;
 exports.branch             = options.branch;

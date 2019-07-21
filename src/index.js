@@ -247,9 +247,13 @@ function filesToCommit() {
  */
 async function commitAndTag(version) {
 
+    const commitMessage = config.commitMessage
+        ? config.commitMessage.replace(/%s/, version)
+        : version;
+
     try {
         await git().add(filesToCommit());
-        await git().commit(version);
+        await git().commit(commitMessage);
         output.gitCommitOK();
 
         await git().addTag(version);

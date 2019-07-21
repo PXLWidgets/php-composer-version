@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- CLI option `-m, --message` to override the commit message content for a version commit.
+  Sequences of `%s` within a given message are replaced with the new version number.
+
 ## [1.2.2] (2019-07-19)
 
 ### Fixed

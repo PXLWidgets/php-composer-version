@@ -210,14 +210,15 @@ Object.assign(exports, {
 Usage: php-composer-version [options]
 
 ${chalk.yellow('Self info:')}
-    ${chalk.green('-h, --help')}                   Display this help message.
-    ${chalk.green('-v, --version')}                Show current version of php-composer-version.
+    ${chalk.green('-h, --help')}                       Display this help message.
+    ${chalk.green('-v, --version')}                    Show current version of php-composer-version.
     
 ${chalk.yellow('Options:')}
-    ${chalk.green('-V, --set-version <version>')}  The new package version to write. If not provided, php-composer-version will prompt interactively.
-    ${chalk.green('-b, --branch <name>')}          Set the branch for the version commit. If on any other branch, the process will fail. ${chalk.yellow('[default: "master"]')} 
-    ${chalk.green('-d, --allow-dirty')}            Allow additional changes to be committed with the version commit.
-    ${chalk.green('-p, --sync-package-json')}      Toggle additional update of the version number in package.json.
+    ${chalk.green('-V, --set-version <new-version>')}  The new package version to write. If not provided, php-composer-version will prompt interactively.
+    ${chalk.green('-b, --branch <name>')}              Set the branch for the version commit. If on any other branch, the process will fail. ${chalk.yellow('[default: "master"]')} 
+    ${chalk.green('-m, --message <message>')}          Specify a custom message for the version commit. ${chalk.yellow('%s')} within a given message is replaced with the version number. ${chalk.yellow('[default: <new-version>]')} 
+    ${chalk.green('-d, --allow-dirty')}                Allow additional changes to be committed with the version commit.
+    ${chalk.green('-p, --sync-package-json')}          Toggle additional update of the version number in package.json.
 `);
     }
 });
