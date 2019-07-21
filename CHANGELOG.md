@@ -2,7 +2,7 @@
 # Changelog
 [![npm version](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version.svg)](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version)
 
-All notable changes to `@pxlwidgets/php-composer-version` will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+All notable changes to [`@pxlwidgets/php-composer-version`][repo] will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
@@ -71,6 +71,8 @@ under development does not have to have a `package.json` file in the repository.
 - Git tag action, tagging the new commit with the version number
 - Git tag availability check
 - Version compare check (a new version must be greater than the current)
+
+[repo]: https://github.com/PXLWidgets/php-composer-version
 
 [Unreleased]: https://github.com/PXLWidgets/php-composer-version/compare/v1.2.2...HEAD
 [1.2.2]: https://github.com/PXLWidgets/php-composer-version/compare/v1.2.1...v1.2.2

@@ -1,6 +1,6 @@
 # php-composer-version [![npm version](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version.svg)](https://badge.fury.io/js/%40pxlwidgets%2Fphp-composer-version)
 
-This is a small CLI tool to bump versions of php-composer packages, 
+This is a small CLI tool that bumps versions of php-composer packages, 
 similar to how `npm version` works. On input of a new version number:
 
 1. If enabled through CLI option (`-p`), the new version is written to the project's `package.json`
