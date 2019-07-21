@@ -26,6 +26,9 @@ if (argvContainsAny(...selfInfoFlags.help)) {
     done();
 }
 
+output.blankLine();
+output.gray(`\t(i) Run 'php-composer-version -h' to see available options`);
+
 /**
  * Main function (IIFE)
  */

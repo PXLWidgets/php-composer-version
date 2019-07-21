@@ -3,10 +3,10 @@
 This is a small CLI tool that bumps versions of php-composer packages, 
 similar to how `npm version` works. On input of a new version number:
 
-1. If enabled through CLI option (`-p`), the new version is written to the project's `package.json`
-2. The new version is written to the project's `composer.json`
-3. Above changes are committed with a message of the version number
-4. The created commit is tagged with the version number
+1. If enabled through CLI option (`-p`), the new version is written to the project's `package.json`.
+2. The new version is written to the project's `composer.json`.
+3. Above changes are committed with a provided message if given (`-m`), or otherwise the version number as message.
+4. The created commit is tagged with the version number.
 
 [View changelog.][changelog]
 
@@ -47,9 +47,18 @@ and then perform the steps mentioned above:
 
 > ```
 > Enter new version number (current: 0.2.3)
->     version >
+>     version > 
 > ```
 
+Alternatively the new version can be given as CLI argument with `-V` (capital v) or `--set-version`:
+
+```bash
+$ php-composer-version --set-version 0.2.4
+# OR
+$ php-composer-version -V 0.2.4
+```
+
+This approach allows for automated versioning where interactive sessions won't work.
 ## Checks
 
 - **Version comparison**
@@ -59,8 +68,8 @@ and then perform the steps mentioned above:
   
 - **Version availability check**
   
-    The entered version is compared against all git tags to make sure that no
-    tag already exists by the name of the version.
+  The entered version is compared against all git tags to make sure that no
+  tag already exists by the name of the version.
     
 - **Git branch check**
 
@@ -71,23 +80,48 @@ and then perform the steps mentioned above:
   
 - **Git status check**
 
-  If the working directory is not clean, the user is asked paermission to continue. 
+  If the working directory is not clean, the user is asked permission to continue. 
   To skip the prompt and always allow additional changes,
-  use the `--allow-dirty` option.
+  use the `--allow-dirty` option flag.
   
-### CLI Options
-```text
-Self info:
-    -h, --help                   Display this help message.
-    -v, --version                Show current version of php-composer-version.
+### Self information
 
-Options:
-    -V, --set-version <new-version>  The new package version to write. If not provided, php-composer-version will prompt interactively.
-    -b, --branch <name>              Set the branch for the version commit. If on any other branch, the process will fail. [default: "master"]
-    -m, --message <message>          Specify a custom message for the version commit. %s within a given message is replaced with the version number. [default: <new-version>]
-    -d, --allow-dirty                Allow additional changes to be committed with the version commit.
-    -p, --sync-package-json          Toggle additional update of the version number in package.json.
-```
+#### `-h, --help`
+Displays available options and short documentation, and then exits the process. 
+
+#### `-v, --version`
+ 
+Displays the current version of `php-composer-version` and then exits the process.
+
+### Versioning CLI Options:
+
+#### `-V, --set-version <new-version>`
+
+Specify the new package version to write. If not provided, `php-composer-version` 
+will prompt interactively. This argument is required for non-interactive sessions.
+
+#### `-b, --branch <name>`
+Set the target branch for the version commit. If on any other branch, the process will fail.
+
+#### `-m, --message <message>`
+
+Specify a custom message for the version commit. Sequences of `%s` within given `<message>` is replaced with 
+the version number. If not provided, the new version number is used as the commit message.
+
+#### `-d, --allow-dirty`
+
+Allow additional changes to be committed with the version commit. If not given, and the
+Git stage contains changes, the user is asked interactively if the process should continue.
+If this flag is given or the user confirms to continue, any currently staged changes will be
+part of the version commit.
+
+This is primarily useful to include other version-related information, such as changelog updates,
+or generated documentation. 
+
+#### `-p, --sync-package-json`
+
+Toggle additional update of the version number in package.json.
+
 ## License
 
 The MIT License (MIT)

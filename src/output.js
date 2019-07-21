@@ -67,6 +67,7 @@ function changedFilesContent(staged) {
 
 Object.assign(exports, {
 
+    gray,
     success,
     error,
     blankLine,
