@@ -1,6 +1,6 @@
 {
     "name": "@pxlwidgets/php-composer-version",
-    "version": "1.2.2",
+    "version": "1.3.0",
     "description": "A small CLI tool that bumps versions of php-composer packages, similar to how npm version works.",
     "repository": "git+https://github.com/PXLWidgets/php-composer-version.git",
     "homepage": "https://github.com/PXLWidgets/php-composer-version",
