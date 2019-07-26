@@ -77,7 +77,7 @@ under development does not have to have a `package.json` file in the repository.
 [repo]: https://github.com/PXLWidgets/php-composer-version
 
 [Unreleased]: https://github.com/PXLWidgets/php-composer-version/compare/v1.3.0...HEAD
-[1.2.2]: https://github.com/PXLWidgets/php-composer-version/compare/v1.2.2...v1.3.0
+[1.3.0]: https://github.com/PXLWidgets/php-composer-version/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/PXLWidgets/php-composer-version/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/PXLWidgets/php-composer-version/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/PXLWidgets/php-composer-version/compare/v1.1.2...v1.2.0
